@@ -112,7 +112,7 @@
     <h1>Controle de Estacionamento</h1>
 
     <div class="painel-cadastro">
-        <input type="text" id="modelo" placeholder="Modelo do Carro">
+        <input type="text" id="modelo" list="marcas" placeholder="Modelo do Carro">
         <datalist id="marcas">
             <option value="Toyota">
             <option value="Honda">
@@ -141,7 +141,7 @@
                 const mapa = document.getElementById('mapa');
                 mapa.innerHTML = ''; // Limpa o mapa
 
-                for (let i = 1; i <= 9; i++) { //GERAR DE 1 A 9 VAGAS
+                for (let i = 1; i <= 9; i++) { //GERAR DE 1 A 15 VAGAS
                     const divVaga = document.createElement('div');
                     divVaga.className = 'vaga';
                     
@@ -218,3 +218,5 @@
     </script>
 </body>
 </html>
+
+//modelo artigo abnt.doc
