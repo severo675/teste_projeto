@@ -1,6 +1,8 @@
+const VeiculoRepository = require('../repositories/VeiculoRepository');
+
 class EstacionamentoService {
     constructor(repository) {
-        this.respository = repository; // banco
+        this.repository = new VeiculoRepository; // banco
     }
 
     async listarTodos() {
@@ -12,7 +14,7 @@ class EstacionamentoService {
         if (vaga < 1 || vaga > 9) throw new Error ("Vaga inexistente (escolha entre as vagas 1 e 9)!"); // total de vagas
         
         const ocupada = await this.repository.findByVaga(vaga);
-        if (ocupada) throw new Error('Vaga ${vaga} já ocupada!'); // não repetição de vagas
+        if (ocupada) throw new Error(`Vaga ${vaga} já ocupada!`); // não repetição de vagas
 
         return await this.repository.create(dados);
     }
