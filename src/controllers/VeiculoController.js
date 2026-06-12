@@ -10,6 +10,8 @@ class VeiculoController {
 
     async store(req, res) {
         try {
+            const { vaga, placa, nome, cpf, localidade } = req.body;
+            
             const veiculo = await this.service.registrarEntrada(req.body);
             res.status(201).json(veiculo); // retorna para o veiculo criado
         } catch (error) {

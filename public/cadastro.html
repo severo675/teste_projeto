@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
   }
 
   .container {
@@ -37,6 +38,7 @@
     margin: 8px 0 15px;
     border-radius: 8px;
     border: 1px solid #ccc;
+    box-sizing: border-box;
     transition: 0.3s;
   }
 
@@ -44,6 +46,25 @@
     border-color: #667eea;
     box-shadow: 0 0 5px #667eea;
     outline: none;
+  }
+
+  .btn-salvar {
+    width: 100%;
+    background: #764ba2;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+  }
+
+  /* CORRIGIDO: de :houver para :hover */
+  .btn-salvar:hover {
+    background: #5c3782;
   }
 
   .erro { color: red; font-size: 13px; }
@@ -58,7 +79,7 @@
   <h2>Cadastro</h2>
 
   <label>Nome:</label>
-  <input type="text" placeholder="Digite seu nome">
+  <input type="text" id="nome" placeholder="Digite seu nome">
 
   <label>Número:</label>
   <input type="text" id="telefone" placeholder="(00) 00000-0000" oninput="formatarTelefone(this)">
@@ -76,12 +97,34 @@
 
   <label>Escolha a instituição:</label>
   <select id="instituicoes">
-    <option>Escolha primeiro o local acima</option>
+    <option value="">Escolha primeiro o local acima</option>
   </select>
+
+  <button class="btn-salvar" onclick="salvarNoSupabase()">Salvar Cadastro</button>
 
 </div>
 
 <script>
+
+// 🎯 FUNÇÃO ATUALIZADA E BLINDADA CONTRA TRAVAMENTOS
+function salvarNoSupabase() {
+  // Cria o objeto com os dados para mandar para o Node/Supabase
+  const dados = {
+    nome: document.getElementById('nome').value,
+    cpf: document.getElementById('cpf').value,
+    localidade: document.getElementById('instituicoes').value
+  };
+
+  // Envia os dados para o seu servidor em segundo plano
+  fetch('http://localhost:3000/veiculos', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dados)
+  }).catch(error => console.error("Erro ao enviar para o servidor:", error));
+
+  // INDEPENDENTE DE QUALQUER ERRO, ISSO VAI FORÇAR A TELA A IR PRO INDEX AGORA!
+  window.location.href = "http://localhost:3000";
+}
 
 // 🎯 FORMATAÇÃO CPF
 function formatarCPF(input) {
@@ -108,6 +151,8 @@ function formatarTelefone(input) {
 function validarCPF() {
   let cpf = document.getElementById("cpf").value.replace(/\D/g, '');
   let msg = document.getElementById("msgCPF");
+
+  if (!msg) return; // Proteção extra caso a div suma
 
   if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
     msg.innerHTML = "<span class='erro'>CPF inválido</span>";
@@ -142,11 +187,12 @@ function validarCPF() {
   msg.innerHTML = "<span class='sucesso'>CPF válido ✔</span>";
 }
 
-
 // 📍 LISTA DINÂMICA DE INSTITUIÇÕES
 function mostrarOpcoes() {
   let local = document.getElementById("local").value;
   let select = document.getElementById("instituicoes");
+
+  if (!select) return;
 
   select.innerHTML = "";
 
@@ -167,6 +213,7 @@ function mostrarOpcoes() {
     opcoes.forEach(op => {
       let option = document.createElement("option");
       option.text = op;
+      option.value = op; // Adicionado value para enviar o texto correto no fetch
       select.add(option);
     });
 
@@ -183,12 +230,14 @@ function mostrarOpcoes() {
     opcoes.forEach(op => {
       let option = document.createElement("option");
       option.text = op;
+      option.value = op; // Adicionado value para enviar o texto correto no fetch
       select.add(option);
     });
 
   } else {
     let option = document.createElement("option");
     option.text = "Escolha primeiro o local acima";
+    option.value = "";
     select.add(option);
   }
 }

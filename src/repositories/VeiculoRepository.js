@@ -35,7 +35,10 @@ class VeiculoRepository {
             .insert([{ 
                 modelo: dados.modelo, 
                 placa: dados.placa, 
-                vaga: parseInt(dados.vaga) 
+                vaga: parseInt(dados.vaga),
+                nome: dados.nome,
+                cpf: dados.cpf,
+                localidade: dados.localidade
             }])
             .select()
             .single();
