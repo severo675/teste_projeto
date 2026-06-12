@@ -25,7 +25,7 @@
 
         h1 { margin-bottom: 20px; }
 
-        /*CADASTRO*/
+        /*cadastro*/
         .painel-cadastro {
             background: white;
             padding: 20px;
@@ -57,7 +57,7 @@
 
         button:hover { background-color: #2c3e50; }
 
-        /*VAGAS*/
+        /*vagas*/
         .mapa-estacionamento {
             display: grid;
             grid-template-columns: repeat(3, 130px); /* 3 colunas organizadas */
@@ -130,7 +130,7 @@
         </div>
 
     <script>
-        let vagaSelecionada = null; //VAGA SELECIONADA
+        let vagaSelecionada = null; /*vaga selecionada*/
 
         //BUSCAR VAGAS
         async function carregarVagas() {
@@ -141,19 +141,19 @@
                 const mapa = document.getElementById('mapa');
                 mapa.innerHTML = ''; // Limpa o mapa
 
-                for (let i = 1; i <= 9; i++) { //GERAR DE 1 A 15 VAGAS
+                for (let i = 1; i <= 9; i++) { //GERAR DE 1 A 9 VAGAS
                     const divVaga = document.createElement('div');
                     divVaga.className = 'vaga';
                     
-                    const veiculo = veiculosOcupados.find(v => v.vaga === i); //VER SE A VAGA ESTÁ OCUPADA
+                    const veiculo = veiculosOcupados.find(v => v.vaga === i); //vaga ocupada
 
                     if (veiculo) {
-                        divVaga.classList.add('ocupada'); //VAGA OCUPADA
+                        divVaga.classList.add('ocupada'); //ocupada
                         divVaga.innerHTML = `<span>VAGA ${i}</span><div class="placa-vaga">${veiculo.placa}</div>`;
-                        divVaga.onclick = () => liberarVaga(i); //SAIDA
+                        divVaga.onclick = () => liberarVaga(i); //saida
                     } else {
                         // Se a vaga estiver livre
-                        divVaga.classList.add('livre'); //VAGA LIVRE
+                        divVaga.classList.add('livre'); //livre
                         divVaga.innerHTML = `<span>VAGA ${i}</span><div class="placa-vaga">LIVRE</div>`;
                         
                         if (vagaSelecionada === i) {

@@ -106,13 +106,13 @@
   <select id="destino"></select>
 </div>
 
-<button class="btn-salvar" onclick="salvarNoSupabase()">Salvar Cadastro</button>
+<button class="btn-salvar" onclick="window.location.href='http://localhost:3000'">Salvar Cadastro</button>
 
 <script>
 
-// JAVASCRIPT
+// js
 
-// 🎯 FORMATAÇÃO CPF
+// cpf
 function formatarCPF(input) {
   let v = input.value.replace(/\D/g, '');
 
@@ -123,7 +123,7 @@ function formatarCPF(input) {
   input.value = v;
 }
 
-// 🎯 FORMATAÇÃO TELEFONE
+// telefone
 function formatarTelefone(input) {
   let v = input.value.replace(/\D/g, '');
 
@@ -133,7 +133,7 @@ function formatarTelefone(input) {
   input.value = v;
 }
 
-// ✅ VALIDAÇÃO CPF
+// validação do cpf
 function validarCPF() {
   let cpf = document.getElementById("cpf").value.replace(/\D/g, '');
   let msg = document.getElementById("msgCPF");
@@ -171,7 +171,6 @@ function validarCPF() {
   msg.innerHTML = "<span class='sucesso'>CPF válido ✔</span>";
 }
 
-// 🎯 EXIBIÇÃO CONDICIONAL DE CAMPOS
 
 function mostrarCampos() {
   let tipo = document.getElementById("tipo").value;
