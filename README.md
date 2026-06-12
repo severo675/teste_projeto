@@ -94,7 +94,7 @@ http://localhost:3000/cadastro.html
 
 ---
 
-## 🚘 Tela Principal
+## Tela Principal
 
 Após o cadastro, o usuário é direcionado para a página principal do sistema, onde é possível:
 
